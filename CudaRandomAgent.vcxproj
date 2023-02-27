@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ArriverManager.cpp" />
+    <ClCompile Include="src\CameraController.cpp" />
+    <ClCompile Include="src\MovingWindow.cpp" />
+    <ClCompile Include="src\OpenGL\glad.c" />
+    <ClCompile Include="src\OpenGL\Shader.cpp" />
+    <ClCompile Include="src\OpenGL\VAO.cpp" />
+    <ClCompile Include="src\OpenGL\VBO.cpp" />
+    <ClCompile Include="src\SeekerManager.cpp" />
+    <ClCompile Include="src\Utilities\ResourceManager.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Utilities\RNGGenerator.cpp" />
+    <ClCompile Include="src\WandererManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="src\CudaArriverManager.cu" />
+    <CudaCompile Include="src\CudaSeekerManager.cu" />
+    <CudaCompile Include="src\CudaWandererManager.cu" />
+    <CudaCompile Include="src\GPUEntityManager.cu" />
+    <CudaCompile Include="src\Utilities\CudaRNG.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Agent.h" />
+    <ClInclude Include="src\Arriver.h" />
+    <ClInclude Include="src\ArriverManager.h" />
+    <ClInclude Include="src\CameraController.h" />
+    <ClInclude Include="src\CudaArriverManager.cuh" />
+    <ClInclude Include="src\CudaSeekerManager.cuh" />
+    <ClInclude Include="src\CudaWandererManager.cuh" />
+    <ClInclude Include="src\EntityManager.h" />
+    <ClInclude Include="src\GPUEntityManager.cuh" />
+    <ClInclude Include="src\MovingWindow.h" />
+    <ClInclude Include="src\OpenGL\Shader.h" />
+    <ClInclude Include="src\OpenGL\VAO.h" />
+    <ClInclude Include="src\OpenGL\VBO.h" />
+    <ClInclude Include="src\Seeker.h" />
+    <ClInclude Include="src\SeekerManager.h" />
+    <ClInclude Include="src\Simulation.h" />
+    <ClInclude Include="src\Utilities\CudaError.h" />
+    <ClInclude Include="src\Utilities\CudaRNG.cuh" />
+    <ClInclude Include="src\Utilities\HelperString.h" />
+    <ClInclude Include="src\Utilities\ResourceManager.h" />
+    <ClInclude Include="src\Utilities\RNGGenerator.h" />
+    <ClInclude Include="src\Utilities\Timer.h" />
+    <ClInclude Include="src\Utilities\VectorMathHelper.h" />
+    <ClInclude Include="src\Wanderer.h" />
+    <ClInclude Include="src\WandererManager.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BDAC6B23-4C85-4BC9-BA83-1113A662108B}</ProjectGuid>
+    <RootNamespace>CudaRandomAgent</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.0.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.5.1\include;C:\Libraries\GLFW\glfw-3.3.8\include;C:\Libraries\GLAD\include;%(AdditionalIncludeDirectories);$(CudaToolkitIncludeDir)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;glfw3.lib;opengl32.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML-2.5.1\lib;C:\Libraries\GLFW\glfw-3.3.8\build\src\Debug;%(AdditionalLibraryDirectories);$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.5.1\include;C:\Libraries\GLFW\glfw-3.3.8\include;C:\Libraries\GLAD\include;C:\Libraries\SFML-2.5.1\include;C:\Libraries\GLFW\glfw-3.3.8\include;C:\Libraries\GLAD\include;%(AdditionalIncludeDirectories);$(CudaToolkitIncludeDir)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;glfw3.lib;opengl32.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML-2.5.1\lib;C:\Libraries\GLFW\glfw-3.3.8\build\src\Release;%(AdditionalLibraryDirectories);$(CudaToolkitLibDir)</AdditionalLibraryDirectories>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.0.targets" />
+  </ImportGroup>
+</Project>
