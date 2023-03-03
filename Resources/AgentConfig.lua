@@ -9,7 +9,7 @@ MaxSpeed = 5.0
 MaxForce = 0.7
 SlowingDistance = 600.0
 -- Other
-MaxAgentNumber = 10000000
+MaxAgentNumber = 100000
 Processor = "GPU"
 AgentType = "Wanderer"
 ThreadNumber = 6

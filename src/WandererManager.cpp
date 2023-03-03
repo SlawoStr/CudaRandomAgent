@@ -3,17 +3,24 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	float radians(float a)
 	{
 		return static_cast<float>(0.017453292 * a);
 	}
 }
 
+////////////////////////////////////////////////////////////
 WandererManager::WandererManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, float wanderDistance, float wanderRadius, float2 simulationBound)
 	: CPUEntityManager(maxSpeed,maxForce,maxAgentNumber,drawMode, threadNumber),m_wanderDistance(wanderDistance),m_wanderRadius(wanderRadius),m_simulationBound(simulationBound)
 {
 }
 
+////////////////////////////////////////////////////////////
 void WandererManager::draw(sf::RenderWindow& window)
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -43,6 +50,7 @@ void WandererManager::draw(sf::RenderWindow& window)
 	}
 }
 
+////////////////////////////////////////////////////////////
 void WandererManager::update()
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -53,6 +61,7 @@ void WandererManager::update()
 	}
 }
 
+////////////////////////////////////////////////////////////
 bool WandererManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {
 	switch (e.type)

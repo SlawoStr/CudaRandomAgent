@@ -32,6 +32,9 @@ protected:
 	DrawMode	m_drawMode;				//!< Which entities should be drawn on screen
 };
 
+/// <summary>
+/// Abstract class for cpu agent managers
+/// </summary>
 class CPUEntityManager : public EntityManager
 {
 public:
@@ -54,9 +57,9 @@ public:
 	void subThread() { if (m_threadNumber > 1) m_threadNumber--; }
 
 protected:
-	sf::VertexArray		m_agentVertex;
-	sf::VertexArray		m_movementVertex;
-	int					m_threadNumber;
+	sf::VertexArray		m_agentVertex;			//!< Vertex array for agent body drawing
+	sf::VertexArray		m_movementVertex;		//!< Vertex array for movement vector drawing
+	int					m_threadNumber;			//!< Number of threads
 };
 
 

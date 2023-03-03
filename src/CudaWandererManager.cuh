@@ -16,8 +16,8 @@ public:
 	bool handleEvent(sf::Event e, sf::RenderWindow& window) override;
 
 private:
-	thrust::device_vector<Wanderer> m_agents;
-	float							m_wanderDistance;
-	float							m_wanderRadius;
-	float2							m_simulationBound;
+	thrust::device_vector<Wanderer> m_agents;			//!< Thrust agent vec
+	float							m_wanderDistance;	//!< Wander distance offset
+	float							m_wanderRadius;		//!< Radius of wander circle
+	float2							m_simulationBound;	//!< Simulation bounds 
 };

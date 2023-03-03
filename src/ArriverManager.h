@@ -2,6 +2,9 @@
 #include "EntityManager.h"
 #include "Arriver.h"
 
+/// <summary>
+/// Manager of 'Arriver' agents
+/// </summary>
 class ArriverManager : public CPUEntityManager
 {
 public:
@@ -14,7 +17,7 @@ public:
 	bool handleEvent(sf::Event e, sf::RenderWindow& window) override;
 
 private:
-	std::vector<Arriver>	m_agents;
-	sf::Vector2f			m_target;
-	float					m_slowingDistance;
+	std::vector<Arriver>	m_agents;				//!< Agents vector
+	sf::Vector2f			m_target;				//!< Target position
+	float					m_slowingDistance;		//!< Distance after which agents begin to slow down
 };

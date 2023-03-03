@@ -3,8 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <cuda_gl_interop.h>
 #include "Utilities/CudaError.h"
-#include <SFML/Graphics.hpp>
 
+////////////////////////////////////////////////////////////
 GPUEntityManager::GPUEntityManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, int blockNumber)
 	: EntityManager(maxSpeed,maxForce,maxAgentNumber,drawMode),m_threadNumber(threadNumber),m_blockNumber(blockNumber), m_triangleShader("Resources/default.vert","Resources/default.frag"),m_lineShader("Resources/defaultLine.vert", "Resources/defaultLine.frag")
 {
@@ -21,14 +21,14 @@ GPUEntityManager::GPUEntityManager(float maxSpeed, float maxForce, size_t maxAge
 	m_movementVAO.LinkAttrib(m_movementVBO, 0, 2, GL_FLOAT, 2 * sizeof(float), (void*)0);
 	m_movementVAO.Unbind();
 	m_movementVBO.Unbind();
-
 	// Set up Cuda interop
-	cudaSetDevice(0);
-	cudaGraphicsGLRegisterBuffer(&m_cudaAgentResource, m_agentVBO.ID, cudaGraphicsMapFlagsNone);
-	cudaGraphicsGLRegisterBuffer(&m_cudaMovementResource, m_movementVBO.ID, cudaGraphicsMapFlagsNone);
+	checkCudaErrors(cudaSetDevice(0));
+	checkCudaErrors(cudaGraphicsGLRegisterBuffer(&m_cudaAgentResource, m_agentVBO.ID, cudaGraphicsMapFlagsNone));
+	checkCudaErrors(cudaGraphicsGLRegisterBuffer(&m_cudaMovementResource, m_movementVBO.ID, cudaGraphicsMapFlagsNone));
 }
 
+////////////////////////////////////////////////////////////
 GPUEntityManager::~GPUEntityManager()
 {
-	cudaFree(m_state);
+	checkCudaErrors(cudaFree(m_state));
 }

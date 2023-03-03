@@ -48,6 +48,6 @@ public:
 	__host__ __device__ float getMaxSpeed()const { return m_maxSpeed; };
 
 private:
-	float m_maxSpeed;
-	float m_maxForce;
+	float m_maxSpeed;		//!< Maximum speed
+	float m_maxForce;		//!< Maximum turning force
 };

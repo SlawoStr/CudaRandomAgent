@@ -8,6 +8,11 @@
 #include "CudaArriverManager.cuh"
 #include "CudaWandererManager.cuh"
 
+/// <summary>
+/// Map string to agent type enum
+/// </summary>
+/// <param name="agentType">Agent name enum</param>
+/// <returns>Agent type enum</returns>
 AgentType getAgentType(std::string agentType)
 {
 	if (agentType == "Seeker")
@@ -25,6 +30,11 @@ AgentType getAgentType(std::string agentType)
 	return AgentType::SEEKER;
 }
 
+/// <summary>
+/// Map string to enum type of processor
+/// </summary>
+/// <param name="processorType">Processor type enum</param>
+/// <returns>Processor name enum</returns>
 Procesor getProcessorType(std::string processorType)
 {
 	if (processorType == "CPU")
@@ -38,6 +48,7 @@ Procesor getProcessorType(std::string processorType)
 	return Procesor::CPU;
 }
 
+////////////////////////////////////////////////////////////
 MovingWindow::MovingWindow(unsigned windowWidth, unsigned windowHeight, std::string windowTitle, unsigned framerate) : m_camera(m_window)
 {
 	m_window.create(sf::VideoMode(windowWidth, windowHeight), windowTitle, sf::Style::Fullscreen);
@@ -56,6 +67,7 @@ MovingWindow::MovingWindow(unsigned windowWidth, unsigned windowHeight, std::str
 	m_background.setFillColor(sf::Color::White);
 }
 
+////////////////////////////////////////////////////////////
 void MovingWindow::run()
 {
 	Timer t;
@@ -76,6 +88,7 @@ void MovingWindow::run()
 	}
 }
 
+////////////////////////////////////////////////////////////
 void MovingWindow::pollEvent()
 {
 	sf::Event e;
@@ -144,13 +157,16 @@ void MovingWindow::pollEvent()
 	}
 }
 
+////////////////////////////////////////////////////////////
 void MovingWindow::update()
 {
 	m_agentManager->update();
 }
 
+////////////////////////////////////////////////////////////
 void MovingWindow::draw()
 {
+	// Push openGL states to avoid states invalidation by sfml
 	m_window.pushGLStates();
 	m_window.draw(m_background);
 	if (m_processor == Procesor::CPU)
@@ -164,6 +180,7 @@ void MovingWindow::draw()
 	}
 }
 
+////////////////////////////////////////////////////////////
 void MovingWindow::createAgent(Procesor processor, AgentType agentType)
 {
 	ResourcesManager manager("Resources/AgentConfig.lua");
@@ -180,7 +197,7 @@ void MovingWindow::createAgent(Procesor processor, AgentType agentType)
 	float slowingDistance{ manager.getFloat("SlowingDistance") };
 	size_t maxAgentNumber{ static_cast<size_t>(manager.getInt("MaxAgentNumber")) };
 	sf::Vector2f simulationBound{ manager.getFloat("BoundX"),manager.getFloat("BoundY") };
-
+	// Create new agent manager
 	switch (m_agentType)
 	{
 		case AgentType::ARRIVER:

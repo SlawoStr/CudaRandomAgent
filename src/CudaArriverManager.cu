@@ -8,12 +8,18 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	__device__ float radians(float a)
 	{
 		return 0.017453292 * a;
 	}
 }
 
+////////////////////////////////////////////////////////////
 __global__ void updateAgent(float3* verticle, float2* lineVerticle, Arriver* agents, int taskSize, float2 target,float slowingDistance)
 {
 	for (int i = blockIdx.x * blockDim.x + threadIdx.x; i < taskSize; i += blockDim.x * gridDim.x)
@@ -24,6 +30,7 @@ __global__ void updateAgent(float3* verticle, float2* lineVerticle, Arriver* age
 		float angle = agents[i].getAngle();
 		float2 position = agents[i].getPosition();
 
+		// Body position
 		verticle[i * 3].x = position.x + 10 * cos(angle);
 		verticle[i * 3].y = position.y + 10 * sin(angle);
 
@@ -33,6 +40,7 @@ __global__ void updateAgent(float3* verticle, float2* lineVerticle, Arriver* age
 		verticle[i * 3 + 2].x = position.x + 6 * cos(angle + radians(90));
 		verticle[i * 3 + 2].y = position.y + 6 * sin(angle + radians(90));
 
+		// Movement vector
 		lineVerticle[i * 2].x = position.x;
 		lineVerticle[i * 2].y = position.y;
 
@@ -41,12 +49,13 @@ __global__ void updateAgent(float3* verticle, float2* lineVerticle, Arriver* age
 	}
 }
 
-
+////////////////////////////////////////////////////////////
 CudaArriverManager::CudaArriverManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, int blockNumber, float targetX, float targetY, float slowingDistance)
 	: GPUEntityManager(maxSpeed,maxForce,maxAgentNumber,drawMode,threadNumber,blockNumber),m_target{targetX,targetY},m_slowingDistance{slowingDistance}
 {
 }
 
+////////////////////////////////////////////////////////////
 void CudaArriverManager::draw(sf::RenderWindow& window)
 {
 	/// Get projection matrix from sfml camera to adjust to sflm drawing
@@ -78,23 +87,28 @@ void CudaArriverManager::draw(sf::RenderWindow& window)
 
 	window.setActive(false);
 }
+
+////////////////////////////////////////////////////////////
 void CudaArriverManager::update()
 {
+	// Map openGl resources to cuda
 	float3* positions;
 	float2* linePositions;
-
 	checkCudaErrors(cudaGraphicsMapResources(1, &m_cudaAgentResource, 0));
 	checkCudaErrors(cudaGraphicsMapResources(1, &m_cudaMovementResource, 0));
 	size_t numBytes{};
 	checkCudaErrors(cudaGraphicsResourceGetMappedPointer((void**)&positions, &numBytes, m_cudaAgentResource));
 	checkCudaErrors(cudaGraphicsResourceGetMappedPointer((void**)&linePositions, &numBytes, m_cudaMovementResource));
 
+	// Update agent on gpu
 	updateAgent << <m_blockNumber, m_threadNumber >> > (positions, linePositions, thrust::raw_pointer_cast(m_agents.data()), static_cast<int>(m_agents.size()), m_target, m_slowingDistance);
 
+	//Unmap openGL resources from cuda
 	checkCudaErrors(cudaGraphicsUnmapResources(1, &m_cudaAgentResource, 0));
 	checkCudaErrors(cudaGraphicsUnmapResources(1, &m_cudaMovementResource, 0));
 }
 
+////////////////////////////////////////////////////////////
 bool CudaArriverManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {
 	m_target = float2{ window.mapPixelToCoords(sf::Mouse::getPosition()).x,window.mapPixelToCoords(sf::Mouse::getPosition()).y };

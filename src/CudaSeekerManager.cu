@@ -8,12 +8,18 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	__device__ float radians(float a)
 	{
 		return 0.017453292 * a;
 	}
 }
 
+////////////////////////////////////////////////////////////
 __global__ void updateAgent(float3* verticle,float2* lineVerticle, Seeker* agents, int taskSize,float2 target)
 {
 	for (int i = blockIdx.x * blockDim.x + threadIdx.x; i < taskSize; i += blockDim.x * gridDim.x)
@@ -41,14 +47,12 @@ __global__ void updateAgent(float3* verticle,float2* lineVerticle, Seeker* agent
 	}
 }
 
-
-
+////////////////////////////////////////////////////////////
 CudaSeekerManager::CudaSeekerManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, int blockNumber, float targetX, float targetY)
 	: GPUEntityManager(maxSpeed, maxForce, maxAgentNumber, drawMode, threadNumber, blockNumber), m_target{ targetX,targetY }
-{
+{}
 
-}
-
+////////////////////////////////////////////////////////////
 void CudaSeekerManager::draw(sf::RenderWindow& window)
 {
 	/// Get projection matrix from sfml camera to adjust to sflm drawing
@@ -81,6 +85,7 @@ void CudaSeekerManager::draw(sf::RenderWindow& window)
 	window.setActive(false);
 }
 
+////////////////////////////////////////////////////////////
 void CudaSeekerManager::update()
 {
 	float3* positions;
@@ -98,6 +103,7 @@ void CudaSeekerManager::update()
 	checkCudaErrors(cudaGraphicsUnmapResources(1, &m_cudaMovementResource, 0));
 }
 
+////////////////////////////////////////////////////////////
 bool CudaSeekerManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {	
 	m_target = float2{ window.mapPixelToCoords(sf::Mouse::getPosition()).x,window.mapPixelToCoords(sf::Mouse::getPosition()).y };

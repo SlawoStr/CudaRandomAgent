@@ -8,12 +8,18 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	__device__ float radians(float a)
 	{
 		return 0.017453292 * a;
 	}
 }
 
+////////////////////////////////////////////////////////////
 __global__ void updateAgent(float3* verticle, float2* lineVerticle, Wanderer* agents, int taskSize, float maxSpeed, float maxForce, float wanderDistance, float wanderRadius, curandState* state, float2 simulationBound)
 {
 	curandState localState = state[threadIdx.x + blockDim.x * blockIdx.x];
@@ -43,12 +49,13 @@ __global__ void updateAgent(float3* verticle, float2* lineVerticle, Wanderer* ag
 	state[threadIdx.x + blockDim.x * blockIdx.x] = localState;
 }
 
-
+////////////////////////////////////////////////////////////
 CudaWandererManager::CudaWandererManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, int blockNumber, float wanderDistance, float wanderRadius, float2 simulationBound)
 	: GPUEntityManager(maxSpeed, maxForce, maxAgentNumber, drawMode, threadNumber, blockNumber), m_wanderDistance{ wanderDistance }, m_wanderRadius{ wanderRadius }, m_simulationBound{ simulationBound }
 {
 }
 
+////////////////////////////////////////////////////////////
 void CudaWandererManager::draw(sf::RenderWindow& window)
 {
 	/// Get projection matrix from sfml camera to adjust to sflm drawing
@@ -81,6 +88,7 @@ void CudaWandererManager::draw(sf::RenderWindow& window)
 	window.setActive(false);
 }
 
+////////////////////////////////////////////////////////////
 void CudaWandererManager::update()
 {
 	float3* positions;
@@ -100,6 +108,7 @@ void CudaWandererManager::update()
 	checkCudaErrors(cudaGraphicsUnmapResources(1, &m_cudaMovementResource, 0));
 }
 
+////////////////////////////////////////////////////////////
 bool CudaWandererManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {
 	switch (e.type)

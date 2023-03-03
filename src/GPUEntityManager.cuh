@@ -7,6 +7,9 @@
 #include "Utilities/CudaRNG.cuh"
 #include "cuda_runtime.h"
 
+/// <summary>
+/// Class to be inherited by other cuda agent managers
+/// </summary>
 class GPUEntityManager : public EntityManager
 {
 public:
@@ -14,18 +17,17 @@ public:
 
 	~GPUEntityManager();
 
-
 protected:
-	int								m_threadNumber;
-	int								m_blockNumber;
-	VBO								m_agentVBO;
-	VBO								m_movementVBO;
-	VAO								m_agentVAO;
-	VAO								m_movementVAO;
-	Shader							m_triangleShader;
-	Shader							m_lineShader;
-	curandState*					m_state;
-	struct cudaGraphicsResource*	m_cudaAgentResource;
-	struct cudaGraphicsResource*	m_cudaMovementResource;
+	int								m_threadNumber;				//!< Number of threads per block
+	int								m_blockNumber;				//!< Number of blocks
+	VBO								m_agentVBO;					//!< Agent VBO data
+	VBO								m_movementVBO;				//!< Agent vector movement VBO data
+	VAO								m_agentVAO;					//!< VAO for agent
+	VAO								m_movementVAO;				//!< VAO for agent movement
+	Shader							m_triangleShader;			//!< Shader for triangles(agents body)
+	Shader							m_lineShader;				//!< Shader for line(movement vector)
+	curandState*					m_state;					//!< Random states for random number generator
+	struct cudaGraphicsResource*	m_cudaAgentResource;		//!< Cuda resources for openGL data interop (agents)
+	struct cudaGraphicsResource*	m_cudaMovementResource;		//!< Cuda resources for openGL data interop	(movement vector)
 };
 

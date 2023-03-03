@@ -15,7 +15,7 @@ public:
 	bool handleEvent(sf::Event e, sf::RenderWindow& window) override;
 
 private:
-	thrust::device_vector<Arriver>	m_agents;
-	float2							m_target;
-	float							m_slowingDistance;
+	thrust::device_vector<Arriver>	m_agents;				//!< Thrust agent vector
+	float2							m_target;				//!< Target position
+	float							m_slowingDistance;		//!< Distance after which agents begin to slow down
 };

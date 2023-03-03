@@ -3,17 +3,23 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	float radians(float a)
 	{
 		return static_cast<float>(0.017453292 * a);
 	}
 }
 
+////////////////////////////////////////////////////////////
 ArriverManager::ArriverManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, sf::Vector2f target, float slowingDistance)
 	: CPUEntityManager(maxSpeed, maxForce, maxAgentNumber, drawMode, threadNumber), m_target(target),m_slowingDistance(slowingDistance)
 {}
 
-
+////////////////////////////////////////////////////////////
 void ArriverManager::draw(sf::RenderWindow& window)
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -33,16 +39,19 @@ void ArriverManager::draw(sf::RenderWindow& window)
 			m_movementVertex[i * 2 + 1].position = sf::Vector2f(position.x + 30 * cos(angle), position.y + 30 * sin(angle));
 		}
 	}
+	// Draw agent body
 	if (m_drawMode == DrawMode::ALL || m_drawMode == DrawMode::BODY)
 	{
 		window.draw(m_agentVertex);
 	}
+	// Draw movement vector
 	if (m_drawMode == DrawMode::ALL || m_drawMode == DrawMode::MOVEMENT)
 	{
 		window.draw(m_movementVertex);
 	}
 }
 
+////////////////////////////////////////////////////////////
 void ArriverManager::update()
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -54,6 +63,7 @@ void ArriverManager::update()
 	}
 }
 
+////////////////////////////////////////////////////////////
 bool ArriverManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {
 	m_target = window.mapPixelToCoords(sf::Mouse::getPosition());
@@ -61,6 +71,7 @@ bool ArriverManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 	{
 	case sf::Event::MouseButtonPressed:
 	{
+		// Spawn Agents
 		if (e.key.code == sf::Mouse::Button::Left)
 		{
 			if (m_agents.size() < m_maxAgentNumber)
@@ -75,6 +86,7 @@ bool ArriverManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 	}
 	case sf::Event::KeyPressed:
 	{
+		// Reset and spawn maximum number of agents in random positions
 		if (e.key.code == sf::Keyboard::R)
 		{
 			m_agents.clear();
@@ -85,6 +97,7 @@ bool ArriverManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 				m_agents.emplace_back(spawnPosition, RNGGenerator::randFloat(0.0f, 6.2831f), RNGGenerator::randFloat(0.1f, m_maxSpeed), RNGGenerator::randFloat(0.1f, m_maxForce));
 			}
 		}
+		break;
 	}
 	}
 	return false;

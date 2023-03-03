@@ -15,6 +15,6 @@ public:
 	bool handleEvent(sf::Event e, sf::RenderWindow& window) override;
 
 private:
-	thrust::device_vector<Seeker> m_agents;
-	float2 m_target;
+	thrust::device_vector<Seeker> m_agents;		//!< Thrust agent vector
+	float2 m_target;							//!< Target position
 };

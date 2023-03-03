@@ -3,16 +3,23 @@
 
 namespace
 {
+	/// <summary>
+	/// Convert degrees to radians
+	/// </summary>
+	/// <param name="a">Degree number</param>
+	/// <returns>Radians</returns>
 	float radians(float a)
 	{
 		return static_cast<float>(0.017453292 * a);
 	}
 }
 
+////////////////////////////////////////////////////////////
 SeekerManager::SeekerManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, sf::Vector2f target) 
 	: CPUEntityManager(maxSpeed,maxForce,maxAgentNumber,drawMode,threadNumber), m_target(target)
 {}
 
+////////////////////////////////////////////////////////////
 void SeekerManager::draw(sf::RenderWindow & window)
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -42,6 +49,7 @@ void SeekerManager::draw(sf::RenderWindow & window)
 	}
 }
 
+////////////////////////////////////////////////////////////
 void SeekerManager::update()
 {
 	#pragma omp parallel for num_threads(m_threadNumber)
@@ -53,6 +61,7 @@ void SeekerManager::update()
 	}
 }
 
+////////////////////////////////////////////////////////////
 bool SeekerManager::handleEvent(sf::Event e, sf::RenderWindow& window)
 {
 	m_target = window.mapPixelToCoords(sf::Mouse::getPosition());

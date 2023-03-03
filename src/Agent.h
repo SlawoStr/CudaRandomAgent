@@ -30,8 +30,8 @@ public:
 	__host__ __device__ float2 getPosition() const { return m_position; }
 
 protected:
-	float2 m_position;
-	float2 m_velocity;
-	float2 m_acceleration;
-	float  m_angle;
+	float2 m_position;		//!< Agent position
+	float2 m_velocity;		//!< Agent velocity
+	float2 m_acceleration;	//!< Agent acceleration
+	float  m_angle;			//!< Agent angle
 };
