@@ -47,9 +47,16 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 - Seeker   
 
+![Seeker Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+
 - Arriver 
 
+![Arriver Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+
 - Wanderer 
+
+![Wanderer Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+
 
 
 
