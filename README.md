@@ -17,22 +17,22 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 # General Controls
 
-|Event|Action|
-|---|---|
-|**Mouse Middle**|Panning|
-|**Mouse Wheel**|Zooming In/Out|
-|**Esc**|Close window|
-|**P**|Pause/Unpause|
+|Event|Action|  
+|---|---|  
+|**Mouse Middle**|Panning|  
+|**Mouse Wheel**|Zooming In/Out|  
+|**Esc**|Close window|  
+|**P**|Pause/Unpause|  
 
 
-# Simulation Controls
+# Simulation Controls   
 
-|**M**|Switch between CPU/GPU|
-|**1**|Switch agent type to SEEKER|
-|**2**|Switch agent type to ARRIVER|
-|**3**|Switch agent type to WANDERER|
-|**Mouse Left**|Spawn 1 agent|
-|**R**|Spawn maximum number of agents|
+|**M**|Switch between CPU/GPU|  
+|**1**|Switch agent type to SEEKER|  
+|**2**|Switch agent type to ARRIVER|  
+|**3**|Switch agent type to WANDERER|  
+|**Mouse Left**|Spawn 1 agent|   
+|**R**|Spawn maximum number of agents|   
 
 
 
