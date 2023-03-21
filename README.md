@@ -15,16 +15,16 @@ Implementation of three different autonomous agents.
 
 Parameters of agents can be changed via configuration files in resources folder.
 
-# Camera Controls
+# General Controls
 
-|Command|Action|
+|Event|Action|
 |---|---|
+|**Mouse Middle**|Panning|
+|**Mouse Wheel**|Zooming In/Out|
+|**Esc**|Close window|
+
+
+# Simulation Controls
+
 |**P**|Pause/Unpause the simulation|
-|**M**|Toggle markers drawing|
-|**A**|Toggle ants drawing|
-|**S**|Toggle max speed mode|
-|**W**|Toggle Wall mode|
-|**E**|Toggle Wall erase mode|
-|**Right click**|Add food|
-|**Left click**|Move view|
-|**Wheel**|Zoom|
+|**P**|Pause/Unpause the simulation|
