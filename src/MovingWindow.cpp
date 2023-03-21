@@ -51,7 +51,7 @@ Procesor getProcessorType(std::string processorType)
 ////////////////////////////////////////////////////////////
 MovingWindow::MovingWindow(unsigned windowWidth, unsigned windowHeight, std::string windowTitle, unsigned framerate) : m_camera(m_window)
 {
-	m_window.create(sf::VideoMode(windowWidth, windowHeight), windowTitle, sf::Style::Fullscreen);
+	m_window.create(sf::VideoMode(windowWidth, windowHeight), windowTitle, sf::Style::Resize);
 	m_window.setFramerateLimit(framerate);
 
 	//Set Up glad
@@ -84,7 +84,7 @@ void MovingWindow::run()
 		pollEvent();
 		t.stop();
 		double elapsedTime = t.measure();
-		std::cout << "Frame time: " << elapsedTime << std::endl;
+		std::cout << "Frame time: " << elapsedTime * 1000 << std::endl;
 	}
 }
 
@@ -234,7 +234,7 @@ void MovingWindow::createAgent(Procesor processor, AgentType agentType)
 			else
 			{
 				float2 simBound{ simulationBound.x,simulationBound.y };
-				m_agentManager = std::make_unique<CudaWandererManager>(maxSpeed, maxForce, maxAgentNumber, EntityManager::DrawMode::ALL, 128, 15, wanderDistance, wanderRadius, simBound);
+				m_agentManager = std::make_unique<CudaWandererManager>(maxSpeed, maxForce, maxAgentNumber, EntityManager::DrawMode::ALL, 128, 150, wanderDistance, wanderRadius, simBound);
 			}
 			break;
 		}

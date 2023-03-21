@@ -20,6 +20,7 @@ namespace
 }
 
 ////////////////////////////////////////////////////////////
+/*
 __global__ void updateAgent(float3* verticle, float2* lineVerticle, Wanderer* agents, int taskSize, float maxSpeed, float maxForce, float wanderDistance, float wanderRadius, curandState* state, float2 simulationBound)
 {
 	curandState localState = state[threadIdx.x + blockDim.x * blockIdx.x];
@@ -48,6 +49,36 @@ __global__ void updateAgent(float3* verticle, float2* lineVerticle, Wanderer* ag
 	}
 	state[threadIdx.x + blockDim.x * blockIdx.x] = localState;
 }
+*/
+__global__ void updateAgent(float3* verticle, float2* lineVerticle, Wanderer* agents, int taskSize, float maxSpeed, float maxForce, float wanderDistance, float wanderRadius, curandState* state, float2 simulationBound)
+{
+	curandState localState = state[threadIdx.x + blockDim.x * blockIdx.x];
+	for (int i = blockIdx.x * blockDim.x + threadIdx.x; i < taskSize; i += blockDim.x * gridDim.x)
+	{
+		agents[i].wander(maxSpeed, maxForce, wanderDistance, wanderRadius, randomFloat(localState, 0.0f, 6.2831f), simulationBound);
+		agents[i].update(maxSpeed);
+		
+		float angle = agents[i].getAngle();
+		float2 position = agents[i].getPosition();
+
+		verticle[i * 3].x = position.x + 10 * cos(angle);
+		verticle[i * 3].y = position.y + 10 * sin(angle);
+
+		verticle[i * 3 + 1].x = position.x + 6 * cos(angle - radians(90));
+		verticle[i * 3 + 1].y = position.y + 6 * sin(angle - radians(90));
+
+		verticle[i * 3 + 2].x = position.x + 6 * cos(angle + radians(90));
+		verticle[i * 3 + 2].y = position.y + 6 * sin(angle + radians(90));
+
+		lineVerticle[i * 2].x = position.x;
+		lineVerticle[i * 2].y = position.y;
+
+		lineVerticle[i * 2 + 1].x = position.x + 30 * cos(angle);
+		lineVerticle[i * 2 + 1].y = position.y + 30 * sin(angle);		
+	}
+	state[threadIdx.x + blockDim.x * blockIdx.x] = localState;
+}
+
 
 ////////////////////////////////////////////////////////////
 CudaWandererManager::CudaWandererManager(float maxSpeed, float maxForce, size_t maxAgentNumber, DrawMode drawMode, int threadNumber, int blockNumber, float wanderDistance, float wanderRadius, float2 simulationBound)
