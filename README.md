@@ -38,7 +38,7 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 # Performance  
 
-|Processor Type|100'000|1'000'000|5'000'000|10'000'000|  
+|Processor Type\ Agent Number|100'000|1'000'000|5'000'000|10'000'000|  
 |---|---|---|---|---|
 
 # Visualisation  
