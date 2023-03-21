@@ -47,15 +47,15 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 - Seeker   
 
-![Seeker Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+![Seeker Animation](https://github.com/SlawoStr/CudaRandomAgent/blob/master/Img/Seeker.gif)
 
 - Arriver 
 
-![Arriver Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+![Arriver Animation](https://github.com/SlawoStr/CudaRandomAgent/blob/master/Img/Arriver.gif)
 
 - Wanderer 
 
-![Wanderer Animation](https://github.com/SlawekSt/CarAI/blob/main/Animation.gif)
+![Wanderer Animation](https://github.com/SlawoStr/CudaRandomAgent/blob/master/Img/Wanderer.gif)
 
 
 
