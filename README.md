@@ -17,3 +17,14 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 # Controls
 
+|Command|Action|
+|---|---|
+|**P**|Pause/Unpause the simulation|
+|**M**|Toggle markers drawing|
+|**A**|Toggle ants drawing|
+|**S**|Toggle max speed mode|
+|**W**|Toggle Wall mode|
+|**E**|Toggle Wall erase mode|
+|**Right click**|Add food|
+|**Left click**|Move view|
+|**Wheel**|Zoom|
