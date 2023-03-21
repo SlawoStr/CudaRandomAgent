@@ -15,7 +15,7 @@ Implementation of three different autonomous agents.
 
 Parameters of agents can be changed via configuration files in resources folder.
 
-# Controls
+# Camera Controls
 
 |Command|Action|
 |---|---|
