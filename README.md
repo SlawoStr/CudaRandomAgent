@@ -36,6 +36,11 @@ Parameters of agents can be changed via configuration files in resources folder.
 |**Mouse Left**|Spawn 1 agent|   
 |**R**|Spawn maximum number of agents|   
 
+# Visualisation  
+
+
+# Performance  
+
 
 
 
