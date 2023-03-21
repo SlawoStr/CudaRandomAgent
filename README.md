@@ -40,8 +40,8 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 |Processor Type \ Agent Number|100'000|1'000'000|5'000'000|10'000'000|  
 |---|---|---|---|---|
-|**CPU**|||||  
-|**GPU**|||||  
+|**CPU**|0.5ms|38ms|190ms|375ms|  
+|**GPU**|0.5ms|1.8ms|8ms|16ms|  
 
 # Visualisation  
 
