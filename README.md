@@ -27,6 +27,8 @@ Parameters of agents can be changed via configuration files in resources folder.
 
 # Simulation Controls   
 
+|Event|Action|  
+|---|---|  
 |**M**|Switch between CPU/GPU|  
 |**1**|Switch agent type to SEEKER|  
 |**2**|Switch agent type to ARRIVER|  
